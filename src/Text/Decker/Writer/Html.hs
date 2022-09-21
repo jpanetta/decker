@@ -38,14 +38,13 @@ writeIndexLists meta targets out baseUrl = do
       out
       [i|
 ---
-title: Generated Index
-subtitle: #{cwd}
+title: Slides Index
 ---
 ``` {.javascript .run}
 import("./" + Decker.meta.supportPath + "/fuzzySearch/search.js")
     .then(module => console.log(module.default(anchor, 0.6)));
 ```
-\# Slide decks
+\# HTML Slides
 #{unlines decksLinks}
         |]
   where
@@ -70,7 +69,7 @@ import("./" + Decker.meta.supportPath + "/fuzzySearch/search.js")
       let grouped = MM.fromList (zip (map (takeDirectory . fst) files) files)
           renderGroup :: FilePath -> Action [String]
           renderGroup key =
-            (printf "\n## %s:" key :) <$> mapM makeLink (MM.lookup key grouped)
+            (printf "\n" :) <$> mapM makeLink (MM.lookup key grouped)
        in concat <$> mapM renderGroup (MM.keys grouped)
 
 -- | Write Pandoc in native format right next to the output file
