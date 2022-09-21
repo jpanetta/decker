@@ -161,7 +161,6 @@ processSlides pandoc@(Pandoc meta _) = mapSlides (concatM actions) pandoc
         processNotes,
         pauseDots,
         wrapBoxes,
-        processNotes,
         incrementalBlocks,
         selectActiveSlideContent,
         splitJoinColumns,
