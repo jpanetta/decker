@@ -47,12 +47,6 @@ import("./" + Decker.meta.supportPath + "/fuzzySearch/search.js")
 ```
 \# Slide decks
 #{unlines decksLinks}
-\# Handouts
-#{unlines handoutsLinks}
-\# Supporting Documents
-#{unlines pagesLinks}
-\# Questions
-#{unlines questLinks}
         |]
   where
     makeLink (html, pdf) = do
