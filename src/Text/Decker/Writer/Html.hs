@@ -21,6 +21,9 @@ import Text.Decker.Project.Project
 import Text.Pandoc hiding (getTemplate, lookupMeta)
 import Text.Printf
 
+
+import Text.Decker.Internal.Meta as M ( lookupMetaOrElse )
+
 -- | Generates an index.md file with links to all generated files of interest.
 writeIndexLists :: Meta -> Targets -> FilePath -> FilePath -> Action ()
 writeIndexLists meta targets out baseUrl = do
@@ -28,6 +31,7 @@ writeIndexLists meta targets out baseUrl = do
   let handouts = zip (_handouts targets) (_handoutsPdf targets)
   let pages = zip (_pages targets) (_pagesPdf targets)
   let questions = zip (_questions targets) (_questions targets)
+  let title = lookupMetaOrElse "Slide Index" "title" meta :: String
   decksLinks <- makeGroupedLinks decks
   handoutsLinks <- makeGroupedLinks handouts
   pagesLinks <- makeGroupedLinks pages
@@ -38,7 +42,7 @@ writeIndexLists meta targets out baseUrl = do
       out
       [i|
 ---
-title: Slides Index
+title: #{title}
 ---
 ``` {.javascript .run}
 import("./" + Decker.meta.supportPath + "/fuzzySearch/search.js")
