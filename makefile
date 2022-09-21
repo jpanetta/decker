@@ -25,12 +25,14 @@ resource-zip:
 
 install: clean-build
 	mkdir -p $(local-bin-path)
+	rm -f "$(local-bin-path)/$(base-name)" # work around codesign caching issue on Apple Silicon (https://openradar.appspot.com/FB8914243)
 	cp $(executable) "$(local-bin-path)/$(decker-name)"
 	ln -sf "$(decker-name)" $(local-bin-path)/$(base-name)
 	ln -sf "$(decker-name)" $(local-bin-path)/$(base-name)-$(version)
 
 unclean-install: build
 	mkdir -p $(local-bin-path)
+	rm -f "$(local-bin-path)/$(base-name)" # work around codesign caching issue on Apple Silicon (https://openradar.appspot.com/FB8914243)
 	cp $(executable) "$(local-bin-path)/$(decker-name)"
 	ln -sf "$(decker-name)" $(local-bin-path)/$(base-name)
 	ln -sf "$(decker-name)" $(local-bin-path)/$(base-name)-$(version)
